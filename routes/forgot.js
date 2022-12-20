@@ -22,10 +22,10 @@ router.post('/', async (req, res) => {
         email: user.email,
         imgslug: user.imgslug
     }, process.env.jwtPrivateKey);
-    const url = 'ecowas-sanky.herokuapp.com';
+    const url = 'http://ecowasbackend-env.eba-hvykxkzm.eu-west-1.elasticbeanstalk.com';
     // const url = 'localhost:5000';
 
-    const link = `https://ecowas-sanky.herokuapp.com/resetPassword/${token}`; // Future work here!!!!
+    const link = `https://http://ecowasbackend-env.eba-hvykxkzm.eu-west-1.elasticbeanstalk.com/resetPassword/${token}`; // Future work here!!!!
 
     await sendEmail(email, 'sm@k2x.tech',
         `<div>
