@@ -36,7 +36,7 @@ app.use(express.json());
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/forgot', forgot);
-app.use('/reset_password', authentication, reset);
+app.use('/reset_password', reset);
 app.use('/edit_profile', authentication, edit);
 
 // Fetch data for countries
