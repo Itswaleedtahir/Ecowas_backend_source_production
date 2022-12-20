@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
     const url = 'http://ecowasbackend-env.eba-hvykxkzm.eu-west-1.elasticbeanstalk.com';
     // const url = 'localhost:5000';
 
-    const link = `https://http://ecowasbackend-env.eba-hvykxkzm.eu-west-1.elasticbeanstalk.com/resetPassword/${token}`; // Future work here!!!!
+    const link = `http://ecowasbackend-env.eba-hvykxkzm.eu-west-1.elasticbeanstalk.com/resetPassword/${token}`; // Future work here!!!!
 
     await sendEmail(email, 'sm@k2x.tech',
         `<div>
