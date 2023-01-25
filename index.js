@@ -27,7 +27,9 @@ app.use('/static', express.static('public/svg'));
 app.use('/pics', express.static('public/profile'));
 app.use(express.static(path.join(__dirname, "public")));   // Uncomment before deployment AND after adding build
 // Cross-origin resourse sharing
-app.use(cors());
+app.use(cors({
+    origin:'https://ecosysb.ecowas.int/sankey'
+}));
 
 // Fetching data in JSON format
 app.use(express.json());
