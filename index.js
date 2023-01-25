@@ -28,8 +28,11 @@ app.use('/pics', express.static('public/profile'));
 app.use(express.static(path.join(__dirname, "public")));   // Uncomment before deployment AND after adding build
 // Cross-origin resourse sharing
 app.use(cors({
-    origin:'*'
-}));
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+  }));
 
 // Fetching data in JSON format
 app.use(express.json());
