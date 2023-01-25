@@ -58,9 +58,9 @@ app.use('/emission', authentication, emission);
 
 require('./config/prod')(app);  // Uncomment before deployment
  
-// app.get("*",(req, res)=>{
-//     return res.sendFile(path.resolve(__dirname, "./public/", "index.html"));
-// });
+app.get("*",(req, res)=>{
+    return res.sendFile(path.resolve(__dirname, "public", "index.html"));
+});
 
 // Connect to port
 const port = process.env.PORT || 4000;
