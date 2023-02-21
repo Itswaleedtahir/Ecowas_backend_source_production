@@ -27,7 +27,12 @@ app.use('/static', express.static('public/svg'));
 app.use('/pics', express.static('public/profile'));
 app.use(express.static(path.join(__dirname, "public")));   // Uncomment before deployment AND after adding build
 // Cross-origin resourse sharing
-app.use(cors());
+app.use(cors({
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+  }));
 
 // Fetching data in JSON format
 app.use(express.json());
@@ -53,9 +58,9 @@ app.use('/emission', authentication, emission);
 
 require('./config/prod')(app);  // Uncomment before deployment
  
-// app.get("*",(req, res)=>{
-//     return res.sendFile(path.resolve(__dirname, "./public/", "index.html"));
-// });
+app.get("*",(req, res)=>{
+    return res.sendFile(path.resolve(__dirname, "public", "index.html"));
+});
 
 // Connect to port
 const port = process.env.PORT || 4000;
