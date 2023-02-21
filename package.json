@@ -1,6 +1,6 @@
 {
   "name": "sankey-api",
-  "version": "2.0.2",
+  "version": "1.1.0",
   "description": "ECOWAS Sankey Project",
   "main": "index.js",
   "scripts": {
