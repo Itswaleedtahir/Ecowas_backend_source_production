@@ -1,4 +1,4 @@
-const sequelize = require("../db");
+const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
 
 // Create SankeyYears Model
@@ -16,9 +16,13 @@ const mappedEnergyData = sequelize.define("bilanmapper", {
     },
     Color: {
         type: DataTypes.STRING
+    },
+    Image: {
+        type: DataTypes.STRING
     }
 }, {
-    tableName: 'bilanmapper'
+    tableName: 'bilanmapper',
+    timestamps: false
 });
 
 // Check Model

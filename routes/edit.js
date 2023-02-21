@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const users = require("../models/users");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
-const client = require('scp2');
 
 const storage = multer.diskStorage({
   destination: function (req, file, next) {
@@ -44,17 +43,6 @@ router.put("/", profile.single("imgslug"), async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     hash = await bcrypt.hash(newpass, salt);
   }
-
-  // if(req.file) {
-  //   client.scp(`public/profile/${imgslug}`, {
-  //     host: '213.150.196.36',
-  //     username: 'ecosysb',
-  //     password: '7Z1p-Z%Yj}WA',
-  //     path: '/home/ecosysb/public_html/sankey/profile/'
-  //   }, function(err) {
-  //     if(err) console.log("Error uploading image to server");
-  //   });
-  // }
 
   let updatedUser = await users.update(
     { 
