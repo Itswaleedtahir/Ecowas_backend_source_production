@@ -1,7 +1,7 @@
 const sequelize = require("../db");
 const { DataTypes } = require("sequelize");
 
-// Create Sankey Emission Years Model
+// Create Emission Sankey Years Model
 const sankeyEmissionYears = sequelize.define("emissionsankey", {
     idemissionsankey: {
         type: DataTypes.BIGINT,
@@ -18,9 +18,9 @@ const sankeyEmissionYears = sequelize.define("emissionsankey", {
     tableName: 'emissionsankey'
 });
 
-// Check Model
+// Check if table exists in database
 sequelize.sync().then(() => {
-    console.log('Emission sankey table created successfully!');
+    console.log('emissionsankey table is now available!');
 }).catch((error) => {
     console.error('Unable to create table : ', error);
 });

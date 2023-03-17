@@ -1,7 +1,7 @@
 const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
 
-// Create SankeyYears Model
+// Create Model for Energy Sankey Mapper
 const mappedEnergyData = sequelize.define("bilanmapper", {
     Cell: {
         type: DataTypes.STRING,
@@ -25,9 +25,9 @@ const mappedEnergyData = sequelize.define("bilanmapper", {
     timestamps: false
 });
 
-// Check Model
+// Check if table exists in database
 sequelize.sync().then(() => {
-    console.log('Excel Mapper table created successfully!');
+    console.log('bilanmapper table is now available!');
 }).catch((error) => {
     console.error('Unable to create table : ', error);
 });

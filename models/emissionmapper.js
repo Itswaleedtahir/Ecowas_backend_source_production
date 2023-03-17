@@ -1,7 +1,7 @@
 const sequelize = require("../db");
 const { DataTypes } = require("sequelize");
 
-// Create SankeyYears Model
+// Create Emission Mapper Model
 const mappedEmissionData = sequelize.define("emissionmapper", {
     Cell: {
         type: DataTypes.STRING,
@@ -21,9 +21,9 @@ const mappedEmissionData = sequelize.define("emissionmapper", {
     tableName: 'emissionmapper'
 });
 
-// Check Model
+// Check if table exists in database
 sequelize.sync().then(() => {
-    console.log('Excel Mapper table created successfully!');
+    console.log('emissionmapper table is now available!');
 }).catch((error) => {
     console.error('Unable to create table : ', error);
 });

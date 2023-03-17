@@ -1,3 +1,5 @@
+// Formating data to support our Sankey in the frontend
+
 const formatData = (data) => {
     // Creating JSON data for fetching sankey data
     const obj = {};
@@ -12,7 +14,7 @@ const formatData = (data) => {
             ];
         }
 
-        obj[item.annee].push([item.Input, item.Output, parseFloat(item.valeur), item.Color])
+        obj[item.annee].push([item.Input, item.Output, parseFloat(item.valeur), item.Color, item.Image])
     });
     
     // Converting into Array to support Google-Charts-Sankey

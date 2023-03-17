@@ -1,7 +1,7 @@
-const sequelize = require("../db");
+const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
 
-// Create Sankey Energy Data Model
+// Create Energy Sankey Data Model
 const sankeyEnergyData = sequelize.define("bilansankeycellule", {
     idbilansankey: {
         type: DataTypes.BIGINT,
@@ -32,9 +32,9 @@ const sankeyEnergyData = sequelize.define("bilansankeycellule", {
     tableName: 'bilansankeycellule'
 });
 
-// Check Model
+// Check if table exists in database
 sequelize.sync().then(() => {
-    console.log('BilanSankeyCellule table created successfully!');
+    console.log('bilansankeycellule table is now available!');
 }).catch((error) => {
     console.error('Unable to create table : ', error);
 });

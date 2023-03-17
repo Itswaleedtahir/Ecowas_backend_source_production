@@ -1,7 +1,7 @@
 const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
 
-// Create SankeyYears Model
+// Create Countries Model
 const countries = sequelize.define("pays", {
     codePays: {
         type: DataTypes.STRING,
@@ -15,12 +15,13 @@ const countries = sequelize.define("pays", {
         type: DataTypes.STRING
     }, 
 },{
+    tableName: 'pays',
     timestamps: false
 });
 
-// Check Model
+// Check if table exists in database
 sequelize.sync().then(() => {
-    console.log('Countries table created successfully!');
+    console.log('pays table is now available!');
 }).catch((error) => {
     console.error('Unable to create table : ', error);
 });

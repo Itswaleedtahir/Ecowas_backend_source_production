@@ -42,9 +42,9 @@ const users = sequelize.define("users", {
     tableName: 'users'
 });
 
-// Check Model
+// Check if table exists in database
 sequelize.sync().then(() => {
-    console.log('Users table created successfully!');
+    console.log('users table is now available!');
 }).catch((error) => {
     console.error('Unable to create table : ', error);
 });

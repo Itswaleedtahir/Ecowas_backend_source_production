@@ -23,8 +23,7 @@ router.post('/', async (req, res) => {
         imgslug: user.imgslug
     }, process.env.jwtPrivateKey);
 
-    // const link = `http://ecowasbackend-env.eba-hvykxkzm.eu-west-1.elasticbeanstalk.com/resetPassword/${token}`; // Future work here!!!!
-    const link = `http://localhost:3000/resetPassword/${token}`;
+    const link = `http://ecowasbackend-env.eba-hvykxkzm.eu-west-1.elasticbeanstalk.com/resetPassword/${token}`; // Future work here!!!!
 
     await sendEmail(email, 'sm@k2x.tech',
         `<div>

@@ -6,7 +6,10 @@ const { Op } = require("sequelize");
 
 // Get countries table
 router.get('/', async (req, res) => {
+    // Find CEDEAO record
     const cedeao = await countries.findByPk('CEDEAO');
+    
+    // Find all countries records except CEDEAO
     const countryData = await countries.findAll({
         where: {
             codePays: {
@@ -17,6 +20,8 @@ router.get('/', async (req, res) => {
             ["nomPays", 'ASC']
         ]
     });
+
+    // Add CEDEAO record to the beginning of all countries
     countryData.unshift(cedeao);
     
     res.send(countryData);

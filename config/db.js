@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize');
 
+// Create a connection with the database
 const sequelize = new Sequelize(
     'ecowas_dem',
     'admin',
@@ -10,6 +11,7 @@ const sequelize = new Sequelize(
     }
 )
 
+// Check connection with database
 const checkConn = async () => {
     try {
         await sequelize.authenticate();
