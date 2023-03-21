@@ -4,7 +4,7 @@ const app = express();
 require('dotenv').config();
 
 const path = require('path');
-const auth_data = require('./middleware/auth');
+// const auth_data = require('./middleware/basic-auth');
 
 const users = require('./routes/users');
 const auth = require('./routes/auth');
@@ -15,6 +15,7 @@ const energybalance = require('./routes/energyBalance');
 const emission = require('./routes/emission');
 const countries = require('./routes/countries');
 const mapper = require('./routes/mapper');
+const curlrequest = require('./routes/curlrequest');
 
 // Checking ENV variables
 if (!process.env.jwtPrivateKey) {
@@ -40,19 +41,22 @@ app.use('/users', users);
 app.use('/auth', auth);
 app.use('/forgot', forgot);
 app.use('/reset_password', reset);
-app.use('/edit_profile', auth_data, edit);
+app.use('/edit_profile', edit);
 
 // Fetch data for countries
-app.use('/countries', auth_data, countries);
+app.use('/countries', countries);
 
 // Fetch Colors along with mapper
 app.use('/mapper', mapper);
 
 // Fetch data for Energy Balance sheet 
-app.use('/energybalance', auth_data, energybalance);
+app.use('/energybalance', energybalance);
 
 // Fetch data for Emission sheet
-app.use('/emission', auth_data, emission);
+app.use('/emission', emission);
+
+// cURL for home screen
+app.use('/homepage', curlrequest);
 
 // Making application production ready
 // require('./config/prod')(app);  // Uncomment before deployment
