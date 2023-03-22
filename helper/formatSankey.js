@@ -1,30 +1,39 @@
 // Formating data to support our Sankey in the frontend
-const formatData = (data) => {
-    const nodes = [];
-    const links = [];
-
-    data.forEach(row => {
-        const { Input, Output, valeur, Image } = row;
-
-        let sourceNode = nodes.find(node => node.id === Input);
-
-        if(!sourceNode) {
-            sourceNode = { id: Input, value: 0, image: Image }
-            nodes.push(sourceNode);
+const formatData = (tableData) => {
+    const graphData = {};
+    
+    tableData.forEach(function(row) {
+        const year = row.annee.toString();
+        if (!graphData[year]) {
+            graphData[year] = { nodes: [], links: [] };
         }
-
-        let destNode = nodes.find(node => node.id === Output);
-        if (!destNode) {
-            destNode = { id: Output, value: 0, image: Image };
-            nodes.push(destNode);
+    
+        const source = row.Input.trim();
+        const destination = row.Output.trim();
+        const value = Number(row.valeur);
+        const color = row.Color.trim();
+        const image = row.Image.trim();
+    
+        const sourceIndex = graphData[year].nodes.findIndex(function(node) {
+            return node.id === source;
+        });
+    
+        if (sourceIndex === -1) {
+            graphData[year].nodes.push({ id: source, image: `${image}` });
         }
-
-        sourceNode.value += parseInt(valeur);
-
-        links.push({ source: Input, target: Output, value: parseInt(valeur) });
+    
+        const targetIndex = graphData[year].nodes.findIndex(function(node) {
+            return node.id === destination;
+        });
+    
+        if (targetIndex === -1) {
+            graphData[year].nodes.push({ id: destination, image: `${image}` });
+        }
+    
+        graphData[year].links.push({ source: source, target: destination, value: value, color: color });
     });
-
-    return { nodes, links };
+    
+    return graphData;      
 }
 
 module.exports = {
