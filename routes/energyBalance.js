@@ -1,6 +1,6 @@
 const sequelize = require('../config/db');
 const express = require("express");
-const { formatData } = require('../helper/format');
+const { formatData } = require('../helper/formatWithImage');
 const router = express.Router();
 
 // Get sankey for each country
