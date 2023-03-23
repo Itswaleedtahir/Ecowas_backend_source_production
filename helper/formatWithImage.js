@@ -3,15 +3,19 @@
 const formatData = (data) => {
     // Creating JSON data for fetching sankey data
     const obj = {};
-    var images = {};
+    var images = [];
+    var nodes = [];
     var year = null;
 
     data.map((item) => {
         if (!obj[item.annee]) {
-            if(year) obj[year].push(images)
+            if(year) {
+                obj[year].push(nodes);
+                obj[year].push(images);
+            }
 
-            images = {};
             year = item.annee;
+            images = [];
             
             obj[item.annee] = [
                 { "year": parseInt(item.annee) }, 
@@ -22,13 +26,15 @@ const formatData = (data) => {
             ];
         }
         
-        if(!images[item.Output]) {
-            images[item.Output] = item.Image;
+        if(!nodes.includes(item.Output)) {
+            nodes.push(item.Output);
+            images.push(item.Image);
         }
 
         obj[item.annee].push([item.Input, item.Output, parseFloat(item.valeur), item.Color])
     });
 
+    obj[year].push(nodes);
     obj[year].push(images);
     
     // Converting into Array to support Google-Charts-Sankey
