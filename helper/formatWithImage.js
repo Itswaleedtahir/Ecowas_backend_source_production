@@ -10,7 +10,6 @@ const formatData = (data) => {
     data.map((item) => {
         if (!obj[item.annee]) {
             if(year) {
-                obj[year].push(nodes);
                 obj[year].push(images);
             }
 
@@ -27,14 +26,12 @@ const formatData = (data) => {
         }
         
         if(!nodes.includes(item.Output)) {
-            nodes.push(item.Output);
             images.push(item.Image);
         }
 
         obj[item.annee].push([item.Input, item.Output, parseFloat(item.valeur), item.Color])
     });
 
-    obj[year].push(nodes);
     obj[year].push(images);
     
     // Converting into Array to support Google-Charts-Sankey
