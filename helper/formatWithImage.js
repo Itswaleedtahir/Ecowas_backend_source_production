@@ -22,8 +22,8 @@ const formatData = (data) => {
             ];
         }
         
-        if(!images[item.Input]) {
-            images[item.Input] = item.Image;
+        if(!images[item.Output]) {
+            images[item.Output] = item.Image;
         }
 
         obj[item.annee].push([item.Input, item.Output, parseFloat(item.valeur), item.Color])
