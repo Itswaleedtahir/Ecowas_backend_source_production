@@ -12,7 +12,8 @@ const sankeyNodes = sequelize.define("sankeynodes", {
         type: DataTypes.STRING
     }
 }, {
-    tableName: 'sankeynodes'
+    tableName: 'sankeynodes',
+    timestamps: false
 });
 
 // Check if table exists in database
