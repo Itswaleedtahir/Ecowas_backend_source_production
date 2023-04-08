@@ -1,6 +1,6 @@
 const sequelize = require('../config/db');
 const express = require("express");
-const { formatData } = require('../helper/formatSankey');
+const { formatToSankey } = require('../helper/formatToSankey');
 const router = express.Router();
 
 // Get sankey for each country
@@ -23,7 +23,7 @@ router.get('/:cc', async (req, res) => {
     // Validation
     
     // Reformat and send response
-    res.send(formatData(data[0]));
+    res.send(formatToSankey(data[0]));
 });
 
 module.exports = router;
