@@ -15,7 +15,7 @@ const energybalance = require('./routes/energyBalance');
 const emission = require('./routes/emission');
 const countries = require('./routes/countries');
 const mapper = require('./routes/mapper');
-const curlrequest = require('./routes/curlrequest');
+const getnodes = require('./routes/getnodes');
 
 // Checking ENV variables
 if (!process.env.jwtPrivateKey) {
@@ -55,8 +55,8 @@ app.use('/energybalance', energybalance);
 // Fetch data for Emission sheet
 app.use('/emission', emission);
 
-// cURL for home screen
-app.use('/homepage', curlrequest);
+// Fetch nodes for sankey
+app.use('/getnodes', getnodes);
 
 // Making application production ready
 // require('./config/prod')(app);  // Uncomment before deployment
