@@ -12,6 +12,8 @@ const forgot = require('./routes/forgot');
 const edit = require('./routes/edit');
 const reset = require('./routes/reset');
 const energybalance = require('./routes/energyBalance');
+const testEnergy = require('./routes/testEnergy');
+const testEmission = require('./routes/testEmission');
 const emission = require('./routes/emission');
 const countries = require('./routes/countries');
 const mapper = require('./routes/mapper');
@@ -50,13 +52,18 @@ app.use('/countries', countries);
 app.use('/mapper', mapper);
 
 // Fetch data for Energy Balance sheet 
-app.use('/energybalance', energybalance);
+app.use('/energybalance', testEnergy);
 
 // Fetch data for Emission sheet
-app.use('/emission', emission);
+app.use('/emission', testEmission);
 
 // Fetch nodes for sankey
 app.use('/getnodes', getnodes);
+
+// Test APIS
+app.use('/testEmission', emission);
+app.use('/testEnergy', energybalance);
+
 
 // Making application production ready
 // require('./config/prod')(app);  // Uncomment before deployment
