@@ -18,6 +18,7 @@ const emission = require('./routes/emission');
 const countries = require('./routes/countries');
 const mapper = require('./routes/mapper');
 const getnodes = require('./routes/getnodes');
+const savesankey = require('./routes/savesankey');
 
 // Checking ENV variables
 if (!process.env.jwtPrivateKey) {
@@ -57,8 +58,11 @@ app.use('/energybalance', testEnergy);
 // Fetch data for Emission sheet
 app.use('/emission', testEmission);
 
-// Fetch nodes for sankey
-app.use('/getnodes', getnodes);
+// Nodes for sankey
+app.use('/getnodes', getnodes); // Fetch
+
+// Save sankey data
+app.use('/savesankey', savesankey)
 
 // Test APIS
 app.use('/testEmission', emission);
