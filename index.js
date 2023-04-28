@@ -19,6 +19,7 @@ const countries = require('./routes/countries');
 const mapper = require('./routes/mapper');
 const getnodes = require('./routes/getnodes');
 const savesankey = require('./routes/savesankey');
+const getsankey = require('./routes/getsankey');
 
 // Checking ENV variables
 if (!process.env.jwtPrivateKey) {
@@ -61,8 +62,9 @@ app.use('/emission', testEmission);
 // Nodes for sankey
 app.use('/getnodes', getnodes); // Fetch
 
-// Save sankey data
-app.use('/savesankey', savesankey)
+// Sankey data
+app.use('/savesankey', savesankey)  // Save
+app.use('/getsankey', getsankey);   // Load
 
 // Test APIS
 app.use('/testEmission', emission);
