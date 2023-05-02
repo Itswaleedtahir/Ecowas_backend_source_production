@@ -2,11 +2,11 @@ const { Sequelize } = require('sequelize');
 
 // Create a connection with the database
 const sequelize = new Sequelize(
-    'ecowas_dem',
-    'admin',
-    'ecowas12345',
+    process.env.SQL_DB_NAME,
+    process.env.SQL_DB_USER,
+    process.env.SQL_DB_PASSWORD,
     {
-        host: 'ecowas-samky-db.cbfte2i14par.eu-west-1.rds.amazonaws.com',
+        host: process.env.SQL_DB_HOST,
         dialect: 'mysql'
     }
 )
