@@ -5,9 +5,8 @@ const Sankeys = require('../models/sankeydata');
 
 // Create and save a new sankey into Sankeys Table
 router.post('/', async (req, res) => {
-
     // Request payload data and header data
-    const { year, country, data } = req.body;
+    const { sankey_name, year, country,data, created_by } = req.body;
     const token = req.header('x-auth-token');   // Future work
 
     try {
@@ -18,7 +17,7 @@ router.post('/', async (req, res) => {
             // Update sankey record
             let updatedSankey = await Sankeys.update(
                 {
-                    data: data ? data : sankey.data
+                    data: data ? data : sankey.data,
                 },
                 {
                     where: { year, country },
@@ -31,13 +30,14 @@ router.post('/', async (req, res) => {
             res.header('x-auth-token', token).status(200).send("Sankey saved successfully!");
         } else {
             // Insert sankey record
-            sankey = await Sankeys.create(_.pick(req.body, ['year', 'country', 'data']));
+            sankey = await Sankeys.create(_.pick(req.body, ['year', 'country', 'data', 'created_by','sankey_name']));
 
             // Send success reponse
             res.header('x-auth-token', token).status(201).send("Sankey created successfully!");
         }
     } catch (error) {
         // Send error reponse
+        console.log(error);
         res.header('x-auth-token', token).status(400).send("Error saving sankey data.");
     }
 });

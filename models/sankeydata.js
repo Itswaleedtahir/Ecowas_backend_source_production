@@ -2,12 +2,18 @@ const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
 
 // Create a Model for the data of all the Sankeys
-const sankeyData = sequelize.define("sankeynodes", {
+const sankeyData = sequelize.define("sankeydata", {
     sankey_id: {
         type: DataTypes.BIGINT,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
+    },
+    sankey_name:{
+        type: DataTypes.STRING
+    },
+    created_by:{
+        type: DataTypes.STRING
     },
     year: {
         type: DataTypes.STRING
@@ -16,7 +22,12 @@ const sankeyData = sequelize.define("sankeynodes", {
         type: DataTypes.STRING
     },
     data: {
-        type: DataTypes.JSON
+        type: DataTypes.JSON,
+        allowNull: true
+    },
+    date_time:{
+        type: DataTypes.DATE,
+        defaultValue:DataTypes.NOW
     }
 }, {
     tableName: 'sankeydata',
