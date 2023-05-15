@@ -1,11 +1,13 @@
 const sequelize = require("../config/db");
+const bilansankey = require('./bilansankey')
 const { DataTypes } = require("sequelize");
 
 // Create Energy Sankey Data Model
 const sankeyEnergyData = sequelize.define("bilansankeycellule", {
     idbilansankey: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true,
     },
     ligne: {
         type: DataTypes.STRING
@@ -13,7 +15,7 @@ const sankeyEnergyData = sequelize.define("bilansankeycellule", {
     colonne: {
         type: DataTypes.STRING
     },
-    valuer: {
+    valeur: {
         type: DataTypes.STRING
     },
     typeproduit: {
@@ -29,8 +31,18 @@ const sankeyEnergyData = sequelize.define("bilansankeycellule", {
         type: DataTypes.STRING
     }
 }, {
-    tableName: 'bilansankeycellule'
+    tableName: 'bilansankeycellule',
+    timestamps: false,
 });
+
+//Relation of sankeyEnergyData table with bilansankey
+sankeyEnergyData.hasOne(bilansankey,{
+    as:"bilansankey",
+    foreignKey: "idbilansankey",
+    sourceKey: "idbilansankey",
+});
+
+
 
 // Check if table exists in database
 sequelize.sync().then(() => {
@@ -38,5 +50,6 @@ sequelize.sync().then(() => {
 }).catch((error) => {
     console.error('Unable to create table : ', error);
 });
+
 
 module.exports = sankeyEnergyData;

@@ -6,6 +6,7 @@ require('dotenv').config();
 const path = require('path');
 // const auth_data = require('./middleware/basic-auth');
 const sankeyData = require('./routes/getallsankeys')
+const GetAllsankeyValues = require('./routes/getsankeyvalues')
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const forgot = require('./routes/forgot');
@@ -65,6 +66,9 @@ app.use('/getnodes', getnodes); // Fetch
 // Sankey data
 app.use('/savesankey', savesankey)  // Save
 app.use('/getsankey', getsankey);   // Load
+
+//GetallSankeyData
+app.use('/getsankeyvalues', GetAllsankeyValues);   // Load
 
 // Fetch Sankey data
 app.use('/getallsankeys', sankeyData); // Fetch
