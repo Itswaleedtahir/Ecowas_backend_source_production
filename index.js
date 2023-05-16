@@ -21,6 +21,7 @@ const mapper = require('./routes/mapper');
 const getnodes = require('./routes/getnodes');
 const savesankey = require('./routes/savesankey');
 const getsankey = require('./routes/getsankey');
+const deletesankey = require('./routes/deletesankey');
 
 // Checking ENV variables
 if (!process.env.jwtPrivateKey) {
@@ -72,6 +73,9 @@ app.use('/getsankeyvalues', GetAllsankeyValues);   // Load
 
 // Fetch Sankey data
 app.use('/getallsankeys', sankeyData); // Fetch
+
+// Delete Sankey data
+app.use('/deletesankey', deletesankey); // Fetch
 
 // Test APIS
 app.use('/testEmission', emission);
