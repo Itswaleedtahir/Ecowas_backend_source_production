@@ -6,31 +6,33 @@ const Sankeys = require('../models/sankeydata');
 // Create and save a new sankey into Sankeys Table
 router.post('/', async (req, res) => {
     // Request payload data and header data
-    const { sankey_name, year, country,data, created_by } = req.body;
+    const { sankey_id,sankey_name, year, country,data, created_by } = req.body;
     const token = req.header('x-auth-token');   // Future work
 
     try {
         // Check if sankey already exists?
-        let sankey = await Sankeys.findOne({ where: { year, country }});
-
-        if(sankey) {
+        
+        if(sankey_id) {
+            let sankey = await Sankeys.findOne({ where: {sankey_id: sankey_id}});
             // Update sankey record
             let updatedSankey = await Sankeys.update(
                 {
                     data: data ? data : sankey.data,
+                    country: country? country : sankey.country,
+                    year: year? year : sankey.year
                 },
                 {
-                    where: { year, country },
+                    where: { sankey_id },
                     returning: true,
                     plain: true,
                 }
             );
             
             // Send success reponse
-            res.header('x-auth-token', token).status(200).send("Sankey saved successfully!");
+            res.header('x-auth-token', token).status(200).send("Sankey updated successfully!");
         } else {
             // Insert sankey record
-            sankey = await Sankeys.create(_.pick(req.body, ['year', 'country', 'data', 'created_by','sankey_name']));
+            await Sankeys.create(_.pick(req.body, ['year', 'country', 'data', 'created_by','sankey_name']));
 
             // Send success reponse
             res.header('x-auth-token', token).status(201).send("Sankey created successfully!");
