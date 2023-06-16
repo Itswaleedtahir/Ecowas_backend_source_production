@@ -15,6 +15,14 @@ const sankeyData = sequelize.define("sankeydata", {
     created_by:{
         type: DataTypes.STRING
     },
+    is_ready:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    is_published:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
     year: {
         type: DataTypes.STRING
     },
