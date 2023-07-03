@@ -23,6 +23,7 @@ const savesankey = require('./routes/savesankey');
 const readysankeys = require("./routes/getreadysankeys")
 const readysankeydata = require("./routes/readySankeyData")
 const getsankey = require('./routes/getsankey');
+const updatenode = require('./routes/editnode');
 const deletesankey = require('./routes/deletesankey');
 
 // Checking ENV variables
@@ -78,6 +79,9 @@ app.use('/getallsankeys', sankeyData); // Fetch
 
 // Fetch readySankeys data
 app.use('/sankeyread', readysankeys); // update
+
+// update existing node data
+app.use('/editnode', updatenode); // update
 
 // Fetch readySankeys data
 app.use('/sankeypublished', readysankeydata); // update
