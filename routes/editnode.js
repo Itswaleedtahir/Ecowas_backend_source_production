@@ -21,7 +21,7 @@ const nodes = multer({ storage });
 router.put("/", nodes.single("image"), async (req, res) => {
    try {
     
-    const { old_id, new_id , image } = req.body;
+    const { old_id, new_id , colour } = req.body;
 
    if(!old_id ) return res.status(400).send("Required field cannot be empty");
    
@@ -33,6 +33,7 @@ router.put("/", nodes.single("image"), async (req, res) => {
     let updatednode = await getnodes.update(
         {
             id: new_id,
+            colour: colour ? colour: node.colour,
             image: img
         },
         {
