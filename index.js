@@ -19,6 +19,7 @@ const emission = require('./routes/emission');
 const countries = require('./routes/countries');
 const mapper = require('./routes/mapper');
 const getnodes = require('./routes/getnodes');
+const deletenode = require('./routes/deletenode');
 const savesankey = require('./routes/savesankey');
 const readysankeys = require("./routes/getreadysankeys")
 const readysankeydata = require("./routes/readySankeyData")
@@ -79,6 +80,9 @@ app.use('/getallsankeys', sankeyData); // Fetch
 
 // Fetch readySankeys data
 app.use('/sankeyread', readysankeys); // update
+
+// Fetch readySankeys data
+app.use('/deletenode', deletenode); // update
 
 // update existing node data
 app.use('/editnode', updatenode); // update
