@@ -4,6 +4,7 @@ const app = express();
 require('dotenv').config();
 
 const path = require('path');
+
 // const auth_data = require('./middleware/basic-auth');
 const sankeyData = require('./routes/getallsankeys')
 const GetAllsankeyValues = require('./routes/getsankeyvalues')
@@ -25,7 +26,7 @@ const readysankeydata = require("./routes/readySankeyData")
 const getsankey = require('./routes/getsankey');
 const deletesankey = require('./routes/deletesankey');
 
-// Checking ENV variables
+// Checking if JWT Key exists
 if (!process.env.jwtPrivateKey) {
     console.log("FATAL ERROR: JWT (Token) Private Key not defined.");
     process.exit(1);
@@ -92,7 +93,8 @@ app.use('/testEnergy', energybalance);
 
 // Making application production ready
 // require('./config/prod')(app);  // Uncomment before deployment
- 
+
+// Default route
 app.get("*" ,(req, res)=>{
     return res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
