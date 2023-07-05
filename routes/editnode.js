@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const getnodes = require("../models/sankeynodes");
 const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 
 // Configure Multer for storing profile images
 const storage = multer.diskStorage({
@@ -12,7 +14,7 @@ const storage = multer.diskStorage({
     // Setup filename for uploaded image
     filename: function (req, file, next) {
         let { old_id , new_id } = req.body;
-        next(null,  new_id ? new_id + ".png" : old_id + ".png");
+        next(null,  new_id ? new_id + Date.now() + ".png" : old_id + Date.now() + ".png");
     },
 });
 
@@ -27,6 +29,9 @@ router.put("/", nodes.single("image"), async (req, res) => {
    
     const node = await getnodes.findOne({ where:{id:old_id}})
     if (!node) return res.status(400).send('No such node exists.');
+
+    const imagepath = path.join(__dirname, '..', 'public/nodes', node.image)
+    if (fs.existsSync(imagepath) && node.image && req.file.filename) fs.unlinkSync(imagepath) 
 
     const img = req.file ? req.file.filename: node.image;
 
