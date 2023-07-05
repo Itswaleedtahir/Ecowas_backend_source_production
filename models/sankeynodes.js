@@ -10,6 +10,9 @@ const sankeyNodes = sequelize.define("sankeynodes", {
     },
     image: {
         type: DataTypes.STRING
+    },
+    colour:{
+        type: DataTypes.STRING
     }
 }, {
     tableName: 'sankeynodes',
