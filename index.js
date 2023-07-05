@@ -24,6 +24,7 @@ const addnode = require('./routes/addingnode');
 const savesankey = require('./routes/savesankey');
 const readysankeys = require("./routes/getreadysankeys")
 const readysankeydata = require("./routes/readySankeyData")
+const publisheddata = require("./routes/ispublished")
 const getsankey = require('./routes/getsankey');
 const updatenode = require('./routes/editnode');
 const deletesankey = require('./routes/deletesankey');
@@ -81,6 +82,9 @@ app.use('/getallsankeys', sankeyData); // Fetch
 
 // Fetch readySankeys data
 app.use('/sankeyread', readysankeys); // update
+
+// Fetch readySankeys data
+app.use('/publishedata', publisheddata); // update
 
 // Fetch creating data
 app.use('/setnode', addnode); // create
