@@ -31,7 +31,7 @@ router.put("/", nodes.single("image"), async (req, res) => {
     if (!node) return res.status(400).send('No such node exists.');
 
     const imagepath = path.join(__dirname, '..', 'public/nodes', node.image)
-    if (fs.existsSync(imagepath) && node.image && req.file.filename) fs.unlinkSync(imagepath) 
+    if (fs.existsSync(imagepath) && node.image && req?.file?.filename) fs.unlinkSync(imagepath) 
 
     const img = req.file ? req.file.filename: node.image;
 
