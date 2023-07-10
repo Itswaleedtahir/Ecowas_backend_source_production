@@ -13,8 +13,15 @@ const storage = multer.diskStorage({
     },
     // Setup filename for uploaded image
     filename: function (req, file, next) {
-        let { old_id , new_id } = req.body;
-        next(null,  new_id ? new_id + Date.now() + ".png" : old_id + Date.now() + ".png");
+        let { old_id, new_id } = req.body;
+
+        // Get the file extension from the original file name
+        let fileExtension = file.originalname.split(".").pop();
+
+        // Generate a unique file name using new_id or old_id, current timestamp, and file extension
+        let fileName = new_id ? new_id + Date.now() + "." + fileExtension : old_id + Date.now() + "." + fileExtension;
+
+        next(null, fileName);
     },
 });
 
