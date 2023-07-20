@@ -46,7 +46,7 @@ const generateSankeyData = (data) => {
         links.push({
             source: nodes.findIndex(obj => obj.id === record.Input),
             target: nodes.findIndex(obj => obj.id === record.Output),
-            value: record.valeur,
+            value:parseInt(record.valeur),
             color: record.Color
         })
     })
