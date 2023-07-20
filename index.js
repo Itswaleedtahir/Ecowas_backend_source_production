@@ -81,7 +81,7 @@ app.use('/getsankey', authAdmin ,getsankey);   // Load
 app.use('/getsankeyvalues',authAdmin ,GetAllsankeyValues);   // Load
 
 // Fetch Sankey data
-app.use('/getallsankeys', authAdmin,sankeyData); // Fetch
+app.use('/getallsankeys',sankeyData); // Fetch
 
 // Fetch readySankeys data
 app.use('/sankeyread',readysankeys); // update

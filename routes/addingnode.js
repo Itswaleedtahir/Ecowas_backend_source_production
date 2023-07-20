@@ -20,6 +20,11 @@ const nodes = multer({ storage });
 
 router.post("/", nodes.single("image"), async (req, res) => {
    try {
+    const { role } = req.authData;
+    if(req.authData)
+    if (role !== "admin") {
+        throw { status: 403, message: "Access forbidden. You are not an admin." };
+      }
     
     const { id, colour } = req.body;
 
