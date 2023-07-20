@@ -4,6 +4,8 @@ const app = express();
 require('dotenv').config();
 
 const path = require('path');
+//middleware 
+const authAdmin = require("./middleware/auth")
 
 // const auth_data = require('./middleware/basic-auth');
 const sankeyData = require('./routes/getallsankeys')
@@ -69,38 +71,38 @@ app.use('/energybalance', testEnergy);
 app.use('/emission', testEmission);
 
 // Nodes for sankey
-app.use('/getnodes', getnodes); // Fetch
+app.use('/getnodes',authAdmin ,getnodes); // Fetch
 
 // Sankey data
-app.use('/savesankey', savesankey)  // Save
-app.use('/getsankey', getsankey);   // Load
+app.use('/savesankey', authAdmin ,savesankey)  // Save
+app.use('/getsankey', authAdmin ,getsankey);   // Load
 
 //GetallSankeyData
-app.use('/getsankeyvalues', GetAllsankeyValues);   // Load
+app.use('/getsankeyvalues',authAdmin ,GetAllsankeyValues);   // Load
 
 // Fetch Sankey data
-app.use('/getallsankeys', sankeyData); // Fetch
+app.use('/getallsankeys', authAdmin,sankeyData); // Fetch
 
 // Fetch readySankeys data
-app.use('/sankeyread', readysankeys); // update
+app.use('/sankeyread',readysankeys); // update
 
 // Fetch readySankeys data
-app.use('/publishedata', publisheddata); // update
+app.use('/publishedata',publisheddata); // update
 
 // Fetch creating data
-app.use('/setnode', addnode); // create
+app.use('/setnode',authAdmin ,addnode); // create
 
 // deleting node data
-app.use('/deletenode', deletenode); // delete
+app.use('/deletenode', authAdmin ,deletenode); // delete
 
 // update existing node data
-app.use('/editnode', updatenode); // update
+app.use('/editnode', authAdmin ,updatenode); // update
 
 // Fetch readySankeys data
-app.use('/sankeypublished', readysankeydata); // update
+app.use('/sankeypublished',authAdmin , readysankeydata); // update
 
 // Delete Sankey data
-app.use('/deletesankey', deletesankey); // Fetch
+app.use('/deletesankey',authAdmin , deletesankey); // Fetch
 
 // Test APIS
 app.use('/testEmission', emission);

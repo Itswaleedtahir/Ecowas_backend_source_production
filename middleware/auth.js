@@ -1,17 +1,36 @@
-const jwt = require('jsonwebtoken');
+const  dcm = require("../helper/decypher")
 
 // Authenticates response data using a token provided in the header
 module.exports = function auth(req, res, next) {
-    const token = req.header('x-auth-token');
-    // Checks if token is provided
-    if(!token) return res.status(401).send('Access denied. No token provided.');
-
+  const token = req.header("x-auth-token");
+  if (!token) return res.status(401).send("Access denied. No token provided.");
     try {
-        // Validates token
-        const decoded = jwt.verify(token, process.env.jwtPrivateKey);
-        req.user = decoded;
+      const [par1,par2,par_3] = token.split('|');
+      console.log(par_3);
+      let par3 = par_3.split("/")
+     const c= par3[0];
+      console.log(c);
+      const country  = par3[1]
+      const role = par3[2]
+
+      const data = {
+        country,
+        role
+      }
+
+      let number1 = parseInt(par1);
+      let number2 = parseInt(par2);
+      let number3 = parseInt(c);
+      let result = dcm(number1,number2,number3)
+      console.log(result)
+      if(result){
+        req.authData = data;
         next();
-    } catch (ex) {
-        res.status(400).send('Invalid token.');
+      }else{
+        throw { status: 400, message: "Invalid Token" };
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(error.status || 500).send("Something went wrong...");
     }
 }

@@ -29,7 +29,11 @@ const nodes = multer({ storage });
 
 router.put("/", nodes.single("image"), async (req, res) => {
    try {
-    
+    const { role } = req.authData;
+    if(req.authData)
+    if (role !== "admin") {
+        throw { status: 403, message: "Access forbidden. You are not an admin." };
+      }
     const { old_id, new_id , colour } = req.body;
 
    if(!old_id ) return res.status(400).send("Required field cannot be empty");

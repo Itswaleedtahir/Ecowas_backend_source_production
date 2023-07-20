@@ -8,7 +8,9 @@ router.patch('/', async (req, res) => {
         // get request parameters
        const { sankey_id} = req.body;
        if(!sankey_id) return res.status(400).send("Required field cannot be empty");
+
        const sankeyData = await sankeydata.findOne({ where:{sankey_id:sankey_id}})
+       if(!sankeyData) return res.status(400).send("No Sankey Found");
        let updatedUser = await sankeydata.update(
         {
           is_ready: true,

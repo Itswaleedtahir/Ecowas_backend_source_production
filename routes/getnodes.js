@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
         const data = await Nodes.findAll();
         res.send(data);
     } catch (error) {
+        console.log(error);
         res.status(error.status || 500).send("Something went wrong...");
     }
 });

@@ -5,6 +5,11 @@ const sankeydata = require("../models/sankeydata")
 // Get sankey data for a specific year and country
 router.patch('/', async (req, res) => {
     try {
+      const { role } = req.authData;
+      if(req.authData)
+      if (role !== "admin") {
+          throw { status: 403, message: "Access forbidden. You are not an admin." };
+        }
         // get request parameters
        const { sankey_id} = req.body;
        if(!sankey_id) return res.status(400).send("Required field cannot be empty");
