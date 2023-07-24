@@ -1,6 +1,6 @@
 const sequelize = require('../config/db');
 const express = require("express");
-const { formatWithNegation } = require('../helper/formatWithNegation');
+const { formatToSankey } = require('../helper/formatToSankey');
 const router = express.Router();
 const Nodes =  require("../models/sankeynodes")
 const modify = require("../helper/modifycolor")
@@ -24,7 +24,7 @@ router.get('/:cc', async (req, res) => {
     const nodes = await Nodes.findAll()
     // Validation
     
-    const modifiedData = modify(formatWithNegation(data[0]), nodes); 
+    const modifiedData = modify(formatToSankey(data[0]), nodes); 
     // Reformat and send response
     res.send(modifiedData);
 });
