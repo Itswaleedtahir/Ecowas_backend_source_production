@@ -21,7 +21,7 @@ const mappedEnergyData = sequelize.define("bilanmapper", {
         type: DataTypes.STRING
     }
 }, {
-    tableName: 'bilanmapper',
+    tableName: 'bilanmapper2',
     timestamps: false
 });
 
