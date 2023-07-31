@@ -47,6 +47,14 @@ app.use('/nodes', express.static('public/nodes'));
 
 // Allow cross-origin resourse sharing
 app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', '*');
+    res.header('Access-Control-Allow-Headers', '*');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Expose-Headers', '*');
+    next();
+  });
 
 // Fetching data in JSON format
 app.use(express.json());
