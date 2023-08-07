@@ -26,6 +26,7 @@ module.exports = function auth(req, res, next) {
       if(result){
         req.authData = data;
         next();
+        
       }else{
         throw { status: 400, message: "Invalid Token" };
       }
