@@ -12,7 +12,10 @@ const storage = multer.diskStorage({
     // Setup filename for uploaded image
     filename: function (req, file, next) {
         let { id} = req.body;
-        next(null,  id + ".png");
+        let fileExtension = file.originalname.split(".").pop();
+        let fileName =  id + "." + fileExtension;
+
+        next(null, fileName);
     },
 });
 
