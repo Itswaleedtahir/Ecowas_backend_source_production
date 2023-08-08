@@ -15,6 +15,7 @@ module.exports = function auth(req, res, next) {
 
       const data = {
         country,
+        
         role
       }
 
