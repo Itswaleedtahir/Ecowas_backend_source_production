@@ -2,56 +2,95 @@ const express = require("express");
 const router = express.Router();
 const addnodes = require("../models/sankeynodes");
 const multer = require("multer");
+const AWS = require("aws-sdk");
 
+ 
 
 // Configure Multer for storing profile images
-const storage = multer.diskStorage({
-    // Setup destination folder for uploaded images
-    destination: function (req, file, next) {
-        next(null, "public/nodes");
-    },
-    // Setup filename for uploaded image
-    filename: function (req, file, next) {
-        let { id} = req.body;
-        let fileExtension = file.originalname.split(".").pop();
-        let fileName =  id + "." + fileExtension;
+const storage = multer.memoryStorage(); // Use memory storage for uploading to S3
 
-        next(null, fileName);
-    },
-});
-//comment
+ 
 
 const nodes = multer({ storage });
 
+ 
+
+// Configure AWS SDK
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+});
+
+ 
+
+const s3 = new AWS.S3();
+
+ 
+
 router.post("/", nodes.single("image"), async (req, res) => {
-   try {
+  try {
     const { role } = req.authData;
-    if(req.authData)
-    if (role !== "admin") {
-        throw { status: 403, message: "Access forbidden. You are not an admin." };
+    if (req.authData)
+      if (role !== "admin") {
+        throw {
+          status: 403,
+          message: "Access forbidden. You are not an admin.",
+        };
       }
-    
+
+ 
+
     const { id, colour } = req.body;
 
-   if(!id ) return res.status(400).send("Required field cannot be empty");
-   
-    const node = await addnodes.findOne({ where:{id:id}})
-    if (node) return res.status(400).send('This node already exists.');
+ 
 
-    const img = req.file ? req.file.filename: node.image;
+    if (!id) return res.status(400).send("Required field cannot be empty");
 
-    let addnode = await addnodes.create(
-        {
-            id: id,
-            colour: colour,
-            image: img
-        }
-    );
-    return res.status(200).send({ message:"Node added successfully",addnode });
-   } catch (err) {
+ 
+
+    const node = await addnodes.findOne({ where: { id: id } });
+    if (node) return res.status(400).send("This node already exists.");
+
+ 
+
+    let img = node ? node.image : "";
+
+ 
+
+    // Upload to S3 if a new image is provided
+    if (req.file) {
+      const fileExtension = req.file.originalname.split(".").pop();
+      const fileName = `${id}-${Date.now()}.${fileExtension}`;
+      
+      const params = {
+        Bucket: "nodes-8-8-23", // Replace with your S3 bucket name
+        Key: fileName,
+        Body: req.file.buffer,
+        ContentType:req.file.mimetype,
+        ACL: "",
+      };
+      const uploadResult = await s3.upload(params).promise();
+      img = uploadResult.Location;
+    }
+
+    let addnode = await addnodes.create({
+      id: id,
+      colour: colour,
+      image: img,
+    });
+
+ 
+
+    return res
+      .status(200)
+      .send({ message: "Node added successfully", addnode });
+  } catch (err) {
     console.log(err);
     res.status(400).send("Something went wrong!");
-   }
+  }
 });
+
+ 
 
 module.exports = router;
