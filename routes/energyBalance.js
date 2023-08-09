@@ -10,6 +10,7 @@ router.get('/:cc', async (req, res) => {
     // Default country logic
     const country = req.params.cc || 'NA';
     
+    
     // Query to get sankey data
     const data = await sequelize.query(`
     SELECT bilansankey.annee, bilanmapper2.Input, bilanmapper2.Output, ABS(bilansankeycellule.valeur) as valeur, bilanmapper2.Color, bilanmapper2.Image
