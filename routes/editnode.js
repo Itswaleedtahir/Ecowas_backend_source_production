@@ -70,6 +70,7 @@ router.put("/", nodes.single("image"), async (req, res) => {
         Bucket: "nodes-8-8-23", // Replace with your S3 bucket name
         Key: fileName,
         Body: req.file.buffer,
+        ContentType:req.file.mimetype,
         ACL: "",
       };
       const uploadResult = await s3.upload(params).promise();
