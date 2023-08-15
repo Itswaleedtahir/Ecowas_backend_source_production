@@ -6,10 +6,8 @@ module.exports = function auth(req, res, next) {
   if (!token) return res.status(401).send("Access denied. No token provided.");
     try {
       const [par1,par2,par_3] = token.split('|');
-      console.log(par_3);
       let par3 = par_3.split("/")
      const c= par3[0];
-      console.log(c);
       const country  = par3[1]
       const role = par3[2]
 
@@ -23,7 +21,6 @@ module.exports = function auth(req, res, next) {
       let number2 = parseInt(par2);
       let number3 = parseInt(c);
       let result = dcm(number1,number2,number3)
-      console.log(result)
       if(result){
         req.authData = data;
         next();

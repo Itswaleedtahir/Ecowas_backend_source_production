@@ -33,6 +33,10 @@ const sankeyData = sequelize.define("sankeydata", {
         type: DataTypes.JSON,
         allowNull: true
     },
+    sankeyType:{
+        type: DataTypes.ENUM("Emission", "Energy"),
+      allowNull: false,
+    },
     date_time:{
         type: DataTypes.DATE,
         defaultValue:DataTypes.NOW
