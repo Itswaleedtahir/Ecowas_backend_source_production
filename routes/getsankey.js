@@ -6,13 +6,13 @@ const Sankeys = require('../models/sankeydata');
 router.get('/', async (req, res) => {
     try {
         // get request parameters
-        let { country, year } = req.query;
+        let { country, year , sankeyType} = req.query;
         const token = req.header('x-auth-token');   // Future work
-
+        console.log(req.query)
         console.log(country + " and " + year);
 
         // Get sankey data for specific parameters
-        const sankey = await Sankeys.findOne({ where: { country, year }});
+        const sankey = await Sankeys.findOne({ where: { country, year , sankeyType }});
 
         if(sankey) {
             res.status(200).send(sankey.data);
