@@ -14,17 +14,17 @@ router.patch("/", async (req, res) => {
         };
       }
     // get request parameters
-    const { sankey_id, country, year } = req.body;
+    const { sankey_id, country, year, sankeyType } = req.body;
 
     if (!sankey_id || !country || !year)
       return res.status(400).send("Required field cannot be empty");
 
     // Check if country and year exist
     const existingData = await sankeydata.findOne({
-      where: { country: country, year: year },
+      where: { country: country, year: year, sankeyType: sankeyType },
     });
-    if (existingData) {
-      return res.status(409).send("Sankey data for this year and country already exists.");
+    if (existingData.dataValues.is_published === true) {
+      return res.status(409).send("Sankey data for this year country and type already exists.");
     }
 
     const sankeyData = await sankeydata.findOne({
@@ -40,7 +40,7 @@ router.patch("/", async (req, res) => {
         plain: true,
       }
     );
-    return res.status(200).send("Published");
+    return res.status(200).send("Sankey is Published");
   } catch (error) {
     console.log(error);
     res.status(400).send("Something went wrong!");
