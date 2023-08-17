@@ -16,7 +16,7 @@ router.patch("/", async (req, res) => {
     // get request parameters
     const { sankey_id, country, year, sankeyType } = req.body;
 
-    if (!sankey_id || !country || !year)
+    if (!sankey_id || !country || !year || !sankeyType) 
       return res.status(400).send("Required field cannot be empty");
 
     // Check if country and year exist
