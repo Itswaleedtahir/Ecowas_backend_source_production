@@ -17,7 +17,7 @@ const edit = require('./routes/edit');
 const reset = require('./routes/reset');
 const energybalance = require('./routes/energyBalance');
 const testEnergy = require('./routes/testEnergy');
-const Emission = require('./routes/Emission');
+const Emission = require('./routes/emission_1');
 const countries = require('./routes/countries');
 const mapper = require('./routes/mapper');
 const getnodes = require('./routes/getnodes');
@@ -113,7 +113,7 @@ app.use('/testEmission', Emission);
 app.use('/testEnergy', energybalance);
 
 
-//comment
+//commenting 
 // Making application production ready
 // require('./config/prod')(app);  // Uncomment before deployment
 
