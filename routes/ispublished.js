@@ -5,16 +5,17 @@ const Nodes = require('../models/sankeynodes');
 const modifyData = require("../helper/modifycolor")
 
 // Get sankey data for a specific year and country
-router.get('/:country', async (req, res) => {
+router.get('/:country/:sankeyType', async (req, res) => {
     try {
-        let { country } = req.params;
+        let { country , sankeyType} = req.params;
 
         // Get sankey data for specific parameters
         const publishedData = await Sankeys.findAll({
             attributes: ['year', 'data'],
             where:{
                 is_published: true,
-                country: country
+                country: country,
+                sankeyType: sankeyType
             }
         });
         const formattedData = {}
