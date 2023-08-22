@@ -17,6 +17,8 @@ AWS.config.update({
 });
 const s3 = new AWS.S3();
 
+const defaultImageUrl = "https://nodes-8-8-23.s3.amazonaws.com/logo-new-1.jpeg"
+
 router.post("/", nodes.single("image"), async (req, res) => {
   try {
     const { role } = req.authData;
@@ -51,6 +53,8 @@ router.post("/", nodes.single("image"), async (req, res) => {
       };
       const uploadResult = await s3.upload(params).promise();
       img = uploadResult.Location;
+    } else {
+      img = defaultImageUrl; // Use the default image URL
     }
 
     let addnode = await addnodes.create({
