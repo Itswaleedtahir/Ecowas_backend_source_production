@@ -17,7 +17,7 @@ AWS.config.update({
 });
 const s3 = new AWS.S3();
 
-const defaultImageUrl = "https://nodes-8-8-23.s3.amazonaws.com/logo-new-1.jpeg"
+const defaultImageUrl = "https://nodes-8-8-23.s3.amazonaws.com/Default+Image.svg"
 
 router.post("/", nodes.single("image"), async (req, res) => {
   try {
