@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const addnodes = require("../models/sankeynodes");
+const { translate } = require('free-translate');
 const multer = require("multer");
 const AWS = require("aws-sdk");
 
@@ -56,11 +57,13 @@ router.post("/", nodes.single("image"), async (req, res) => {
     } else {
       img = defaultImageUrl; // Use the default image URL
     }
-
+    const translatedText = await translate(id,{from: 'en', to:'fr'})
+    console.log(translatedText)
     let addnode = await addnodes.create({
       id: id,
       colour: colour,
       image: img,
+      id_french: translatedText
     });
 
     return res

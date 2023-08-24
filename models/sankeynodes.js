@@ -13,6 +13,9 @@ const sankeyNodes = sequelize.define("sankeynodes", {
     },
     colour:{
         type: DataTypes.STRING
+    },
+    id_french:{
+        type: DataTypes.STRING
     }
 }, {
     tableName: 'sankeynodes',
