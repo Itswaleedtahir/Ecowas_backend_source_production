@@ -72,7 +72,6 @@ router.put("/", nodes.single("image"), async (req, res) => {
       }
     );
     translate(new_id, { from: "en", to: "fr" }).then(async (translatedText) => {
-      console.log("translatedText",translatedText)
        getnodes.update(
         {
           id_french: translatedText,
