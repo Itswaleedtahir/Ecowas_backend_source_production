@@ -4,9 +4,8 @@ const getnodes = require("../models/sankeynodes");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const { translate } = require("free-translate");
 const AWS = require("aws-sdk"); // Add AWS SDK
-
- 
 
 // Configure Multer for storing profile images
 const storage = multer.memoryStorage(); // Use memory storage for uploading to S3
@@ -19,11 +18,7 @@ AWS.config.update({
   region: process.env.AWS_REGION,
 });
 
- 
-
 const s3 = new AWS.S3();
-
- 
 
 router.put("/", nodes.single("image"), async (req, res) => {
   try {
@@ -36,41 +31,29 @@ router.put("/", nodes.single("image"), async (req, res) => {
         };
       }
 
- 
-
     const { old_id, new_id, colour } = req.body;
 
- 
-
     if (!old_id) return res.status(400).send("Required field cannot be empty");
-
- 
 
     const node = await getnodes.findOne({ where: { id: old_id } });
     if (!node) return res.status(400).send("No such node exists.");
 
- 
-
     const imagepath = path.join(__dirname, "..", "public/nodes", node.image);
-    if (
-      fs.existsSync(imagepath) &&
-      node.image &&
-      req?.file?.buffer
-    )
+    if (fs.existsSync(imagepath) && node.image && req?.file?.buffer)
       fs.unlinkSync(imagepath);
-
- 
 
     let img = node.image;
     // Upload to S3 if a new image is provided
     if (req.file) {
       const fileExtension = req.file.originalname.split(".").pop();
-      const fileName = `${new_id ? new_id : old_id}-${Date.now()}.${fileExtension}`;
+      const fileName = `${
+        new_id ? new_id : old_id
+      }-${Date.now()}.${fileExtension}`;
       const params = {
         Bucket: "nodes-8-8-23", // Replace with your S3 bucket name
         Key: fileName,
         Body: req.file.buffer,
-        ContentType:req.file.mimetype,
+        ContentType: req.file.mimetype,
         ACL: "",
       };
       const uploadResult = await s3.upload(params).promise();
@@ -88,8 +71,21 @@ router.put("/", nodes.single("image"), async (req, res) => {
         plain: true,
       }
     );
-
- 
+    translate(new_id, { from: "en", to: "fr" }).then(async (translatedText) => {
+      console.log("translatedText",translatedText)
+       getnodes.update(
+        {
+          id_french: translatedText,
+        },
+        {
+          where: { id: new_id },
+          returning: true,
+          plain: true,
+        }
+      ).then(()=>{
+        console.log("saved")
+      })
+    });
 
     return res.status(200).send({ message: "Node updated successfully" });
   } catch (err) {
@@ -97,7 +93,5 @@ router.put("/", nodes.single("image"), async (req, res) => {
     res.status(400).send("Something went wrong!");
   }
 });
-
- 
 
 module.exports = router;

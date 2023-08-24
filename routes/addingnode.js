@@ -57,15 +57,21 @@ router.post("/", nodes.single("image"), async (req, res) => {
     } else {
       img = defaultImageUrl; // Use the default image URL
     }
-    const translatedText = await translate(id,{from: 'en', to:'fr'})
-    console.log(translatedText)
-    let addnode = await addnodes.create({
-      id: id,
-      colour: colour,
-      image: img,
-      id_french: translatedText
-    });
-
+    
+   
+let addnode = await addnodes.create({
+  id: id,
+  colour: colour,
+  image: img,
+});
+translate(id,{from: 'en', to:'fr'})
+.then(async(translatedText)=>{
+  addnodes.update({id_french:translatedText},{
+    where:{id:id}
+  }).then(()=>{
+    console.log("stored")
+  })
+  })
     return res
       .status(200)
       .send({ message: "Node added successfully", addnode });
