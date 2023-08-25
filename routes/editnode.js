@@ -82,9 +82,23 @@ router.put("/", nodes.single("image"), async (req, res) => {
           plain: true,
         }
       ).then(()=>{
-        console.log("saved")
+        console.log("french saved")
       })
     });
+    translate(new_id, { from: "en", to: "pt" }).then(async (translatedText) => {
+      getnodes.update(
+       {
+         id_portegues: translatedText,
+       },
+       {
+         where: { id: new_id },
+         returning: true,
+         plain: true,
+       }
+     ).then(()=>{
+       console.log("portegues saved")
+     })
+   });
 
     return res.status(200).send({ message: "Node updated successfully" });
   } catch (err) {
