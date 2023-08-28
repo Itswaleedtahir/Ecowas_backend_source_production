@@ -24,7 +24,7 @@ router.patch("/", async (req, res) => {
       where: { country: country, year: year, sankeyType: sankeyType },
     });
     if (existingData.dataValues.is_published === true) {
-      return res.status(409).send("Sankey data for this year country and type already exists.");
+      return res.status(409).send(`Sankey data for  ${year} , ${country} and ${sankeyType} already exists.`);
     }
 
     const sankeyData = await sankeydata.findOne({
