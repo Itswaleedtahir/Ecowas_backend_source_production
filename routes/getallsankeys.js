@@ -7,7 +7,6 @@ router.get('/:createdby', async (req, res) => {
     try {
         const { role } = req.authData;
         const  created = req.params.createdby;
-        console.log(role , created);
         if(role === 'admin') {
             const data = await Sankeys.findAll({
                 where:{
