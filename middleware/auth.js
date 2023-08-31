@@ -10,7 +10,6 @@ module.exports = function auth(req, res, next) {
      const c= par3[0];
       const country  = par3[1]
       const role = par3[2]
-
       const data = {
         country,
         

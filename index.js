@@ -28,6 +28,7 @@ const readysankeys = require("./routes/getreadysankeys")
 const readysankeydata = require("./routes/readySankeyData")
 const publisheddata = require("./routes/ispublished")
 const getsankey = require('./routes/getsankey');
+const getmembersankey = require('./routes/getmembersankeys')
 const updatenode = require('./routes/editnode');
 const deletesankey = require('./routes/deletesankey');
 
@@ -85,7 +86,8 @@ app.use('/getsankey', authAdmin ,getsankey);   // Load
 app.use('/getsankeyvalues',authAdmin ,GetAllsankeyValues);   // Load
 
 // Fetch Sankey data
-app.use('/getallsankeys',sankeyData); // Fetch
+app.use('/getallsankeys',authAdmin,sankeyData); // Fetch
+app.use('/getmembersankey',authAdmin,getmembersankey); // Fetch
 
 // Fetch readySankeys data
 app.use('/sankeyread',readysankeys); // update

@@ -3,22 +3,13 @@ const router = express.Router();
 const Sankeys = require('../models/sankeydata');
 
 // Get sankey data for a specific year and country
-router.get('/:createdby', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const { role } = req.authData;
-        const  created = req.params.createdby;
-        console.log(role , created);
         if(role === 'admin') {
             const data = await Sankeys.findAll({
                 where:{
-                    created_by: created
-                }
-            })
-            res.status(200).send(data)
-        }else if(role === 'National EIS' || role === 'EIS Consulting'){
-            const data = await Sankeys.findAll({
-                where:{
-                    created_by: created             
+                    is_ready: true,
                 }
             })
             res.status(200).send(data)
