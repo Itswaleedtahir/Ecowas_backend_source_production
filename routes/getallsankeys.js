@@ -14,7 +14,7 @@ router.get('/:createdby', async (req, res) => {
                 }
             })
             res.status(200).send(data)
-        }else if(role === 'National EIS' || role === 'EIS Consulting'){
+        }else if(role === 'sie_national' || role === 'redacteur'){
             const data = await Sankeys.findAll({
                 where:{
                     created_by: created             
