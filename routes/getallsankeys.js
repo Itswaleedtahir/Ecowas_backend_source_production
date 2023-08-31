@@ -22,6 +22,8 @@ router.get('/:createdby', async (req, res) => {
                 }
             })
             res.status(200).send(data)
+        }else {
+            res.status(401).send("Unauthorized")
         }
     } catch (error) {
         console.log(error);
