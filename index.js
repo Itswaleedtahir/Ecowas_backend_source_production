@@ -76,7 +76,7 @@ app.use('/mapper', mapper);
 app.use('/energybalance', testEnergy);
 
 // Nodes for sankey
-app.use('/getnodes',authAdmin ,getnodes); // Fetch
+app.use('/getnodes' ,getnodes); // Fetch
 
 // Sankey data
 app.use('/savesankey', authAdmin ,savesankey)  // Save
