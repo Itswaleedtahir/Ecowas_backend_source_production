@@ -10,7 +10,7 @@ router.get('/:cc', async (req, res) => {
     
     // Query to get sankey data
     const data = await sequelize.query(`
-        SELECT emissionsankey.annee, emissionmapper.Input, emissionmapper.Output, emissionsankeycellule.valeur, emissionmapper.Color 
+        SELECT emissionsankey.annee, emissionmapper.Input, emissionmapper.Output, emissionsankeycellule.valeur, emissionmapper.Color, emissionmapper.Image
         FROM emissionmapper, emissionsankeycellule, emissionsankey 
         WHERE emissionmapper.Cell = emissionsankeycellule.linecole 
         && emissionsankeycellule.idemissionsankey = emissionsankey.idemissionsankey 
