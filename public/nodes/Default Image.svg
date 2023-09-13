@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: .53px;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-5 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-1, .cls-2, .cls-5 {
+        stroke: #13875b;
+      }
+
+      .cls-2 {
+        stroke-width: .66px;
+      }
+
+      .cls-6 {
+        fill: #22b37f;
+      }
+
+      .cls-3 {
+        stroke: #fedf30;
+        stroke-width: .31px;
+      }
+
+      .cls-7 {
+        fill: #8ac9fe;
+      }
+
+      .cls-8 {
+        fill: #fedf30;
+      }
+
+      .cls-9 {
+        fill: #48d394;
+      }
+
+      .cls-5 {
+        stroke-width: .43px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <path class="cls-5" d="m19.85,15.18v-1.65c0-.68-.53-1.23-1.19-1.23H5.38c-.66,0-1.19.55-1.19,1.23v1.65"/>
+      <line class="cls-1" x1="12.02" y1="8.26" x2="12.02" y2="15.2"/>
+      <g>
+        <circle class="cls-6" cx="12.02" cy="6.58" r="3.26"/>
+        <polygon class="cls-8" points="13.35 6.58 12.46 6.58 12.46 4.28 10.68 6.58 11.57 6.58 11.57 8.88 13.35 6.58"/>
+      </g>
+      <g>
+        <g>
+          <circle class="cls-6" cx="12" cy="17.96" r="2.72"/>
+          <g>
+            <circle class="cls-8" cx="12" cy="17.96" r="1.03"/>
+            <line class="cls-3" x1="12" y1="16.58" x2="12" y2="16.15"/>
+            <line class="cls-3" x1="12.97" y1="16.99" x2="13.28" y2="16.68"/>
+            <line class="cls-3" x1="13.37" y1="17.96" x2="13.81" y2="17.96"/>
+            <line class="cls-3" x1="12.97" y1="18.93" x2="13.28" y2="19.23"/>
+            <line class="cls-3" x1="12" y1="19.33" x2="12" y2="19.76"/>
+            <line class="cls-3" x1="11.03" y1="18.93" x2="10.72" y2="19.23"/>
+            <line class="cls-3" x1="10.63" y1="17.96" x2="10.19" y2="17.96"/>
+            <line class="cls-3" x1="11.03" y1="16.99" x2="10.72" y2="16.68"/>
+          </g>
+        </g>
+        <g>
+          <circle class="cls-6" cx="19.9" cy="17.96" r="2.72"/>
+          <path class="cls-7" d="m21.08,18.43c0,.64-.53,1.17-1.17,1.17s-1.17-.53-1.17-1.17,1.17-2.12,1.17-2.12c0,0,1.17,1.47,1.17,2.12Z"/>
+        </g>
+        <g>
+          <circle class="cls-6" cx="4.1" cy="17.96" r="2.72"/>
+          <g>
+            <path class="cls-9" d="m5.41,17.74c0,1-1.31,1.82-1.31,1.82,0,0-1.31-.81-1.31-1.82s1.31-1.82,1.31-1.82c0,0,1.31.81,1.31,1.82Z"/>
+            <line class="cls-2" x1="4.1" y1="18.25" x2="4.1" y2="19.99"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <rect class="cls-4" width="24" height="24"/>
+  </g>
+</svg>
