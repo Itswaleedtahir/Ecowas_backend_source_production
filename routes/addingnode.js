@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
     const filename = id + ".png";
     next(null, filename);
   },
+  
 });
 const profile = multer({ storage });
 
