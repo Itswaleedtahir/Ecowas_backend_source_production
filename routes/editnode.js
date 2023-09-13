@@ -5,31 +5,34 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const { translate } = require("free-translate");
-const AWS = require("aws-sdk"); // Add AWS SDK
 
 // Configure Multer for storing profile images
-const storage = multer.memoryStorage(); // Use memory storage for uploading to S3
+const storage = multer.memoryStorage(); // Use memory storage for file uploads
 
-const nodes = multer({ storage });
-// Configure AWS SDK
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
+const fileFilter = (req, file, cb) => {
+  // Check the file size (in bytes)
+  if (file.size > 5 * 1024 * 1024) { // 5 MB limit
+    return cb(new Error("File size too large. Max 5 MB allowed."));
+  }
+  cb(null, true); // Allow the upload if it passes the size check
+};
+
+const nodes = multer({
+  storage: storage,
+  fileFilter: fileFilter, // Apply the file size check
 });
-
-const s3 = new AWS.S3();
 
 router.put("/", nodes.single("image"), async (req, res) => {
   try {
     const { role } = req.authData;
-    if (req.authData)
+    if (req.authData) {
       if (role !== "admin") {
         throw {
           status: 403,
           message: "Access forbidden. You are not an admin.",
         };
       }
+    }
 
     const { old_id, new_id, colour } = req.body;
 
@@ -43,25 +46,22 @@ router.put("/", nodes.single("image"), async (req, res) => {
       fs.unlinkSync(imagepath);
 
     let img = node.image;
-    // Upload to S3 if a new image is provided
+    // Upload image if a new one is provided
     if (req.file) {
       const fileExtension = req.file.originalname.split(".").pop();
       const fileName = `${
         new_id ? new_id : old_id
       }-${Date.now()}.${fileExtension}`;
-      const params = {
-        Bucket: "nodes-8-8-23", // Replace with your S3 bucket name
-        Key: fileName,
-        Body: req.file.buffer,
-        ContentType: req.file.mimetype,
-        ACL: "",
-      };
-      const uploadResult = await s3.upload(params).promise();
-      img = uploadResult.Location;
+      const filePath = path.join(__dirname, "..", "public/nodes", fileName);
+
+      fs.writeFileSync(filePath, req.file.buffer);
+      img = fileName;
     }
+
+    // Update the node record
     let updatednode = await getnodes.update(
       {
-        id: new_id,
+        id: new_id || old_id, // Use new_id if provided, otherwise use old_id
         colour: colour ? colour : node.colour,
         image: img,
       },
@@ -71,34 +71,38 @@ router.put("/", nodes.single("image"), async (req, res) => {
         plain: true,
       }
     );
-    translate(new_id, { from: "en", to: "fr" }).then(async (translatedText) => {
-       getnodes.update(
+
+    // Translate to French and update the database
+    translate(new_id || old_id, { from: "en", to: "fr" }).then(async (translatedText) => {
+      getnodes.update(
         {
           id_french: translatedText,
         },
         {
-          where: { id: new_id },
+          where: { id: new_id || old_id }, // Use new_id if provided, otherwise use old_id
           returning: true,
           plain: true,
         }
       ).then(()=>{
-        console.log("french saved")
+        console.log("French saved")
       })
     });
-    translate(new_id, { from: "en", to: "pt" }).then(async (translatedText) => {
+
+    // Translate to Portuguese and update the database
+    translate(new_id || old_id, { from: "en", to: "pt" }).then(async (translatedText) => {
       getnodes.update(
-       {
-         id_portegues: translatedText,
-       },
-       {
-         where: { id: new_id },
-         returning: true,
-         plain: true,
-       }
-     ).then(()=>{
-       console.log("portegues saved")
-     })
-   });
+        {
+          id_portuguese: translatedText,
+        },
+        {
+          where: { id: new_id || old_id }, // Use new_id if provided, otherwise use old_id
+          returning: true,
+          plain: true,
+        }
+      ).then(()=>{
+        console.log("Portuguese saved")
+      })
+    });
 
     return res.status(200).send({ message: "Node updated successfully" });
   } catch (err) {
